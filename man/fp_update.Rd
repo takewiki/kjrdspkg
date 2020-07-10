@@ -11,23 +11,26 @@ fp_update(
   acctNumber = "acctNumber",
   phone = "phone",
   taxNo = "taxNo",
-  addr = "addr"
+  addr = "addr",
+  multiple = FALSE
 )
 }
 \arguments{
 \item{conn}{连接}
 
+\item{custName}{客户名称}
+
+\item{bank}{银行}
+
+\item{acctNumber}{账号}
+
 \item{phone}{电话}
 
 \item{taxNo}{税号}
 
-\item{fname}{名称}
+\item{addr}{地址}
 
-\item{bankName}{银行名词}
-
-\item{bankAccount}{账号}
-
-\item{fpAddr}{发票地址}
+\item{multiple}{是否显示相似记录}
 }
 \value{
 返回值

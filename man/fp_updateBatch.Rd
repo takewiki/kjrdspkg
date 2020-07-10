@@ -4,7 +4,12 @@
 \alias{fp_updateBatch}
 \title{发票批理更新}
 \usage{
-fp_updateBatch(conn = tsda::conn_rds("kj613"), data, show_process = FALSE)
+fp_updateBatch(
+  conn = tsda::conn_rds("kj613"),
+  data,
+  show_process = FALSE,
+  multiple = FALSE
+)
 }
 \arguments{
 \item{conn}{连接}
@@ -12,6 +17,8 @@ fp_updateBatch(conn = tsda::conn_rds("kj613"), data, show_process = FALSE)
 \item{data}{数据}
 
 \item{show_process}{是否显示进度条}
+
+\item{multiple}{发票是否模糊匹配}
 }
 \value{
 返回值
