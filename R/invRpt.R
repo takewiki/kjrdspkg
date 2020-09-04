@@ -150,6 +150,18 @@ inv_getRpt_cast <- function(conn=conn_kjrds(),
     sum_qty <-data_inv2$Sum[1:inv_count]
     data[,'指定仓库合计库存'] <- sum_qty
     data[,'库存差异值'] <- data[,'指定仓库合计库存']-data[,'安全库存']
+    #处理订单采购在途
+    data_po <- inv_getPOQty(conn = conn,FCompanyId = FCompanyId)
+    names(data_po) <-c('物料编码','采购在途量')
+
+    print(data_po)
+
+    data<- dplyr::left_join(data,data_po,by='物料编码')
+    data[ ,'采购在途量'] <- tsdo::na_replace(data[ ,'采购在途量'],0)
+    data[,'可用库存差异值'] = data[,'库存差异值'] + data[,'采购在途量']
+
+
+    #View(mydata6)
 
 
 
@@ -198,5 +210,24 @@ inv_paramGetStock <- function(file="data-raw/安全库存查询模板.xlsx",shee
                              sheet = sheet)
   res <- unique(data[,'仓库名称',drop=TRUE])
   return(res)
+
+}
+
+#' 获取采购订单已审核未关闭未业务关闭的未入库数量
+#'
+#' @param conn 连接
+#' @param FCompanyId 公司代码
+#'
+#' @return 返回值
+#' @export
+#'
+#' @examples
+#'inv_getPOQty()
+inv_getPOQty <- function(conn=conn_kjrds(),
+                         FCompanyId=100202) {
+sql <- paste0("select FItemNumber,FPOQty  from rds_pur_POQty
+where FCompanyID = ",FCompanyId)
+res <- tsda::sql_select(conn,sql)
+return(res)
 
 }

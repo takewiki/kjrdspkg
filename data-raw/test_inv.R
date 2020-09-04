@@ -25,17 +25,11 @@ View(mydata4)
 
 
 
-mydata5 <- mydata4[,9:12]
+mydata5 <- inv_getPOQty()
+names(mydata5) <-c('物料编码','采购在途量')
+mydata[ ,'采购在途量'] <- tsdo::na_replace(mydata[ ,'采购在途量'],0)
+View(mydata5)
 
-mydata5 <- as.matrix(mydata5)
-
-
-
-mydata6 <-addmargins(mydata5)
-mydata6 <- as.data.frame(mydata6)
+mydata6<- dplyr::left_join(mydata4,mydata5,by='物料编码')
 
 View(mydata6)
-
-
-inv_paramGetMaterial()
-inv_paramGetStock()
