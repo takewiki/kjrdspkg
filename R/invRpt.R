@@ -160,3 +160,43 @@ inv_getRpt_cast <- function(conn=conn_kjrds(),
 return(data)
 }
 
+
+
+#' 返回唯一的物料编码
+#'
+#' @param file 文件
+#' @param sheet 页答
+#'
+#' @return 返回值
+#' @export
+#'
+#' @examples
+#' inv_paramGetMaterial()
+inv_paramGetMaterial <- function(file="data-raw/安全库存查询模板.xlsx",sheet = "物料") {
+  #library(readxl)
+    data <- readxl::read_excel(file,
+                         sheet = sheet)
+    res <- unique(data[,'物料代码',drop=TRUE])
+  return(res)
+
+}
+
+
+#' 返回唯一的仓库
+#'
+#' @param file 文件
+#' @param sheet 页签
+#'
+#' @return 返回值
+#' @export
+#'
+#' @examples
+#' inv_paramGetStock()
+inv_paramGetStock <- function(file="data-raw/安全库存查询模板.xlsx",sheet = "仓库") {
+  #library(readxl)
+  data <- readxl::read_excel(file,
+                             sheet = sheet)
+  res <- unique(data[,'仓库名称',drop=TRUE])
+  return(res)
+
+}

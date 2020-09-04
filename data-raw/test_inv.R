@@ -35,3 +35,7 @@ mydata6 <-addmargins(mydata5)
 mydata6 <- as.data.frame(mydata6)
 
 View(mydata6)
+
+
+inv_paramGetMaterial()
+inv_paramGetStock()
